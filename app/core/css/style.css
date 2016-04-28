@@ -1,0 +1,51 @@
+#index { 
+  background: url(../img/background.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+#login-panel {
+opacity: 0.99;
+margin-tOp:30%;
+}
+.form-group.last { margin-bottom:0px; } 
+.ui-group-buttons .or{position:relative;float:left;width:.31em;height:1.3em;z-index:3;font-size:16.2px}
+.ui-group-buttons .or:before{position:absolute;top:50%;left:50%;content:'or';background-color:#F4F4F4;margin-top:-.1em;margin-left:-.9em;width:1.8em;height:1.8em;line-height:1.55;color:#111;font-style:normal;font-weight:400;text-align:center;border-radius:500px;-webkit-box-shadow:0 0 0 1px rgba(0,0,0,0.1);box-shadow:0 0 0 1px rgba(0,0,0,0.1);-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;box-sizing:border-box}
+.ui-group-buttons .or:after{position:absolute;top:0;left:0;content:' ';width:.3em;height:2.84em;background-color:rgba(0,0,0,0);border-top:.6em solid #F4F4F4;border-bottom:.6em solid #F4F4F4}
+.ui-group-buttons .or.or-lg{height:1.3em;font-size:16px}
+.ui-group-buttons .or.or-lg:after{height:2.85em}
+.ui-group-buttons .or.or-sm{height:1em}
+.ui-group-buttons .or.or-sm:after{height:2.5em}
+.ui-group-buttons .or.or-xs{height:.25em}
+.ui-group-buttons .or.or-xs:after{height:1.84em;z-index:-1000}
+.ui-group-buttons{display:inline-block;vertical-align:middle}
+.ui-group-buttons:after{content:".";display:block;height:0;clear:both;visibility:hidden}
+.ui-group-buttons .btn{float:left;border-radius:0;width:49%}
+.ui-group-buttons .btn:first-child{margin-left:0;border-top-left-radius:.25em;border-bottom-left-radius:.25em;padding-right:15px}
+.ui-group-buttons .btn:last-child{border-top-right-radius:.25em;border-bottom-right-radius:.25em;padding-left:15px}
+.input-group { margin-bottom:10px; }
+.separator { border-right: 2px solid #F4F4F4; }
+
+
+#home{margin-top:50px;background:#efefef}
+#home #accordion .glyphicon { margin-right:10px; }
+#home #accordion .panel-body { padding:0px; }
+#home #accordion .panel-body table tr td { padding-left: 15px }
+#home #accordion .panel-body .table {margin-bottom: 0px; }
+#home #quickShort .panel-body .btn:not(.btn-block) { width:190px;margin-bottom:10px; }
+
+.tab-content{margin-top:20px;}
+#password label {text-align:left;}
+.dropdown:hover .dropdown-menu {
+    display: block;
+ }
+ .Surety_panel{
+ 	margin-bottom:10px;
+ }
+ .Surety_panel .panel-title a{
+ 	text-decoration: none;
+ }
+ .Surety_panel .panel-body{
+ 	padding:15px !important;
+ }

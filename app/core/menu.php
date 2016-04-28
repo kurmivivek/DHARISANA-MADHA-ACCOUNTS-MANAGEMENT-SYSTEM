@@ -6,8 +6,8 @@
            <li class="dropdown">
                 <a href="#" role="button" aria-expanded="false"> Church<span class="caret"></span></a>
                   <ul class="dropdown-menu" role="menu">
-                    <li><a href="member_add_new.php"><span class="glyphicon glyphicon-plus"></span> Income</a></li>
-                    <li><a href="member_view.php"><span class="glyphicon glyphicon-minus"></span> Expenditure</a></li>
+                    <li><a href="church_add_income.php"><span class="glyphicon glyphicon-plus"></span> Income</a></li>
+                    <li><a href="church_add_expenditure.php"><span class="glyphicon glyphicon-minus"></span> Expenditure</a></li>
                   </ul>
             </li>
             <li class="dropdown">

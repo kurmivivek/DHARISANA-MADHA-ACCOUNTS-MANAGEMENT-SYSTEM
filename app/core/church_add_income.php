@@ -15,6 +15,8 @@
 				<div class="panel-body">
 					<div id="result"></div>
 					<form class="form-horizontal col-md-12 col-sm-12" role="form" id="churchIncomeForm" autocomplete="off">
+							  <input type="hidden" name="category" value="church">
+							  <input type="hidden" name="type" value="income">
 							  <div class="col-md-6 col-sm-12">
 							  	  <div class="form-group">
 									<label for="date" class="col-md-4 control-label" > Date</label>
@@ -55,7 +57,7 @@
 								  <button type="reset" class="btn-lg btn-primary" onclick="$('#churchIncomeForm').data('formValidation').resetForm();"><span class="glyphicon glyphicon-repeat"></span> Clear Form</button>
 								</div>
 								<div class="col-md-4">
-								  <button type="submit" name="newMember" class="btn-lg btn-success"><span class="glyphicon glyphicon-floppy-open"></span> Add Record</button>
+								  <button type="submit" name="submit" class="btn-lg btn-success"><span class="glyphicon glyphicon-floppy-open"></span> Add Record</button>
 								</div>
 							  </div>
 							</div>
@@ -135,7 +137,7 @@ $(document).ready(function()	{
             var bv = $form.data('formValidation');
 
             // Use Ajax to submit form data
-            var jqxhr =$.post("ajax/add_entry.php", $form.serialize() , function(result) {
+            var jqxhr =$.post("ajax/add_record.php", $form.serialize() , function(result) {
                 // ... Process the result ...
                 if(result['success']){
                 	swal({  title: "Success!",   

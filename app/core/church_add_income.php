@@ -62,6 +62,32 @@
 							  </div>
 							</div>
 					</form>
+					<div class="col-md-offset-2 col-md-8">
+						<table class="table table-striped table-hover">
+						<thead>
+							<tr>
+								<th>Date</th>
+								<th>Name</th>
+								<th>Receipt #</th>
+								<th>Amount</th>
+								<th>Page No of Ledger</th>
+								<th>Operator Name</th>
+								<th>Entry Date</th>
+								<th>Edit</th>
+							</tr>
+						</thead>
+						<tbody>
+						<?php
+						$db = new SQLite3('../db/core.db') or die('Unable to open database');
+						$result = $db->query("SELECT *,strftime('%d-%m-%Y',date) as date,strftime('%d-%m-%Y %H:%M',timestamp) as entry_date  FROM record WHERE category='church' and type='income'") or die("Query failed");
+						while ($row = $result->fetchArray())
+						{
+						echo "<tr><td>{$row['date']}</td><td>{$row['name']}</td><td>{$row['receipt_no']}</td><td>{$row['amount']}</td><td>{$row['ledger_page_no']}</td><td>{$row['operator_name']}</td><td>{$row['entry_date']}</td><td><a href='payment_edit.php?sel_payment_id={$row['id']}' class='btn btn-info' role='button'>Edit</a></td></tr>";
+						}
+						?>
+						</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>

@@ -29,6 +29,7 @@ if(isset(  $_POST['category'] ))
 	}	
 	else
 	{
+		$out['id'] = $db->querySingle("SELECT last_insert_rowid()");
 		$tran=$db->querySingle("COMMIT");
 		$out['success']=true;
 		$out['date']=$date_unformated;

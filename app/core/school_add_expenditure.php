@@ -68,7 +68,7 @@
 							  </div>
 							</div>
 					</form>
-					<div class="col-md-offset-2 col-md-8">
+					<div class="col-md-offset-2 col-md-10">
 						<h3 style="text-align:center"><strong>Recent expenditure records</strong></h3>
 						<table class="table table-striped table-hover" id="recordTable">
 						<thead>

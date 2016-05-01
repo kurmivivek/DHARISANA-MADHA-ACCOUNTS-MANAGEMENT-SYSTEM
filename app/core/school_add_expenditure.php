@@ -68,6 +68,34 @@
 							  </div>
 							</div>
 					</form>
+					<div class="col-md-offset-2 col-md-8">
+						<h3 style="text-align:center"><strong>Recent expenditure records</strong></h3>
+						<table class="table table-striped table-hover" id="recordTable">
+						<thead>
+							<tr>
+								<th>Date</th>
+								<th>Name</th>
+								<th>Voucher #</th>
+								<th>Amount</th>
+								<th>Bill #</th>
+								<th>Page No of Ledger</th>
+								<th>Operator Name</th>
+								<th>Entry Date</th>
+								<th>Edit</th>
+							</tr>
+						</thead>
+						<tbody>
+						<?php
+						$db = new SQLite3('../db/core.db') or die('Unable to open database');
+						$result = $db->query("SELECT *,strftime('%d-%m-%Y',date) as date,strftime('%d-%m-%Y %H:%M',timestamp) as entry_date FROM (SELECT * FROM record WHERE category='school' and type='expenditure' ORDER BY id DESC LIMIT 5) ORDER BY id ASC") or die("Query failed");
+						while ($row = $result->fetchArray())
+						{
+						echo "<tr><td>{$row['date']}</td><td>{$row['name']}</td><td>{$row['receipt_no']}</td><td>{$row['amount']}</td><td>{$row['bill_no']}</td><td>{$row['ledger_page_no']}</td><td>{$row['operator_name']}</td><td>{$row['entry_date']}</td><td><a href='payment_edit.php?sel_payment_id={$row['id']}' class='btn btn-info' role='button'>Edit</a></td></tr>";
+						}
+						?>
+						</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -89,6 +117,9 @@
 		{
 			$('#amount').val(parseFloat($('#amount').val()).toFixed(2));
 		}
+	}
+	function pad(d) {
+    	return (d < 10) ? '0' + d.toString() : d.toString();
 	}
 	</script>
 <script>
@@ -146,6 +177,8 @@ $(document).ready(function()	{
             var jqxhr =$.post("ajax/add_record.php", $form.serialize() , function(result) {
                 // ... Process the result ...
                 if(result['success']){
+                	var d = new Date();
+                	$('#recordTable tbody').append("<tr class='success'><td>"+result['date']+"</td><td>"+result['name']+"</td><td>"+result['receipt_no']+"</td><td>"+result['amount']+"</td><td>"+result['bill_no']+"</td><td>"+result['ledger_page_no']+"</td><td><?php echo $_COOKIE['admin_name']?></td><td>"+pad(d.getDate())+"-"+pad(d.getMonth()+1)+"-"+d.getFullYear()+" "+pad(d.getHours())+":"+pad(d.getMinutes())+"</td><td><a href='payment_edit.php?sel_payment_id="+result['id']+"' class='btn btn-info' role='button'>Edit</a></td></tr>");
                 	swal({  title: "Success!",   
                 			text: "The record has been sucessfully added",
                 			type: "success",   

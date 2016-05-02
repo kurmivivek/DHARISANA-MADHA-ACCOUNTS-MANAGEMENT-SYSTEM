@@ -117,11 +117,12 @@
 							<?php 
 							$income = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='income'") or ($income=0);
 							$expenditure = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='expenditure'") or ($Expenditure=0);
-							$balance=$income-$expenditure
+							$balance=$income-$expenditure;
 							?>
 							<span class="col-md-12" style="text-align:center"><strong>Church Bank Balance: ₹ </strong><span id="total_balance"><?php echo number_format((float)$balance, 2, '.', '');?></span></span>
 						</div>
 					</div>
+					<button type="button" onclick="updateBalance();">update</button>
 				</div>
 			</div>
 		</div>
@@ -205,6 +206,16 @@ $(document).ready(function()	{
                 if(result['success']){
                 	var d = new Date();
                 	$('#recordTable tbody').append("<tr class='success'><td>"+result['date']+"</td><td>"+result['name']+"</td><td>"+result['receipt_no']+"</td><td>"+result['amount']+"</td><td>"+result['ledger_page_no']+"</td><td><?php echo $_COOKIE['admin_name']?></td><td>"+pad(d.getDate())+"-"+pad(d.getMonth()+1)+"-"+d.getFullYear()+" "+pad(d.getHours())+":"+pad(d.getMinutes())+"</td><td><a href='payment_edit.php?sel_payment_id="+result['id']+"' class='btn btn-info' role='button'>Edit</a></td></tr>");
+                	var total_balance=$("#total_balance").text();
+                	var balance=$("#balance").text();
+                	var income=$("#income").text();
+                	var amount=result['amount'];
+                	total_balance=parseFloat(total_balance)+parseFloat(amount);
+                	balance=parseFloat(balance)+parseFloat(amount);
+                	income=parseFloat(income)+parseFloat(amount);
+                	$("#total_balance").text(total_balance.toFixed(2));
+                	$("#balance").text(balance.toFixed(2));
+                	$("#income").text(income.toFixed(2));
                 	swal({  title: "Success!",   
                 			text: "The record has been sucessfully added",
                 			type: "success",   

@@ -212,6 +212,16 @@ $(document).ready(function()	{
                 if(result['success']){
                 	var d = new Date();
                 	$('#recordTable tbody').append("<tr class='success'><td>"+result['date']+"</td><td>"+result['name']+"</td><td>"+result['receipt_no']+"</td><td>"+result['amount']+"</td><td>"+result['bill_no']+"</td><td>"+result['ledger_page_no']+"</td><td><?php echo $_COOKIE['admin_name']?></td><td>"+pad(d.getDate())+"-"+pad(d.getMonth()+1)+"-"+d.getFullYear()+" "+pad(d.getHours())+":"+pad(d.getMinutes())+"</td><td><a href='payment_edit.php?sel_payment_id="+result['id']+"' class='btn btn-info' role='button'>Edit</a></td></tr>");
+                	var total_balance=$("#total_balance").text();
+                	var balance=$("#balance").text();
+                	var expenditure=$("#expenditure").text();
+                	var amount=result['amount'];
+                	total_balance=parseFloat(total_balance)-parseFloat(amount);
+                	balance=parseFloat(balance)-parseFloat(amount);
+                	expenditure=parseFloat(expenditure)+parseFloat(amount);
+                	$("#total_balance").text(total_balance.toFixed(2));
+                	$("#balance").text(balance.toFixed(2));
+                	$("#expenditure").text(expenditure.toFixed(2));
                 	swal({  title: "Success!",   
                 			text: "The record has been sucessfully added",
                 			type: "success",   

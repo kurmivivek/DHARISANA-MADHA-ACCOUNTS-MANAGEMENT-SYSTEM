@@ -4,6 +4,7 @@
 	{
 			header("Location:login.php");
 	}
+	date_default_timezone_set("Asia/Kolkata");
 ?>
 <?php include 'head.php'; ?>
 <?php include 'menu.php'; ?>
@@ -95,6 +96,38 @@
 						?>
 						</tbody>
 						</table>
+					</div>
+					<div class="col-md-offset-3 col-md-8">
+						<div class="col-md-6">
+							<h3 style="text-align:center"><strong><?php echo date('F',mktime(0, 0, 0, date("m")-1, date("d"),   date("Y")));?>'s Accounts Record</strong></h3>
+							<?php 
+							$income = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='income' and strftime('%Y-%m',date)=strftime('%Y-%m','now','-1 month','localtime')") or ($income=0);
+							$expenditure = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='expenditure' and strftime('%Y-%m',date)=strftime('%Y-%m','now','-1 month','localtime')") or ($Expenditure=0);
+							$balance=$income-$expenditure
+							?>
+							<span class="col-md-7" style="text-align:right"><strong>Total Income: ₹</strong></span><span><?php echo number_format((float)$income, 2, '.', '');?></span><br/>
+							<span class="col-md-7" style="text-align:right"><strong>Total Expenditure: ₹</strong></span><span><?php echo number_format((float)$expenditure, 2, '.', '');?></span><br/>
+							<span class="col-md-7" style="text-align:right"><strong>Balance: ₹</strong></span><span><?php echo number_format((float)$balance, 2, '.', '');?></span>
+						</div>
+						<div class="col-md-6">
+							<h3 style="text-align:center"><strong><?php echo date('F');?>'s Accounts Record</strong></h3>
+							<?php 
+							$income = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='income' and strftime('%Y-%m',date)=strftime('%Y-%m','now','localtime')") or ($income=0);
+							$expenditure = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='expenditure' and strftime('%Y-%m',date)=strftime('%Y-%m','now','localtime')") or ($Expenditure=0);
+							$balance=$income-$expenditure
+							?>
+							<span class="col-md-7" style="text-align:right"><strong>Total Income: ₹</strong></span><span id="income"><?php echo number_format((float)$income, 2, '.', '');?></span><br/>
+							<span class="col-md-7" style="text-align:right"><strong>Total Expenditure: ₹</strong></span><span id="expenditure"><?php echo number_format((float)$expenditure, 2, '.', '')?></span><br/>
+							<span class="col-md-7" style="text-align:right"><strong>Balance: ₹</strong></span><span id="balance"><?php echo number_format((float)$balance, 2, '.', '');?></span>
+						</div>
+						<div class="col-md-12">
+							<?php 
+							$income = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='income'") or ($income=0);
+							$expenditure = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='expenditure'") or ($Expenditure=0);
+							$balance=$income-$expenditure
+							?>
+							<span class="col-md-12" style="text-align:center"><strong>Church Bank Balance: ₹ </strong><span id="total_balance"><?php echo number_format((float)$balance, 2, '.', '');?></span></span>
+						</div>
 					</div>
 				</div>
 			</div>

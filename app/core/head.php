@@ -22,6 +22,7 @@ ob_start();
     <script src="js/bootstrap.validation.min.js"></script>
     <script src="js/chosen.jquery.min.js"></script>
     <script src="js/sweetalert.min.js"></script>
+    <script src="js/Chart.js"></script>
 </head>
 <?php
 require 'functions.php';

@@ -27,7 +27,7 @@
         <div class="col-md-12 ">
 			<div class="panel panel-primary" >
 				<div class="panel-heading">
-					<h3><strong>Bank Income View</strong></h3>
+					<h3><strong>Bank Expenditure View</strong></h3>
 				</div>
 				<div class="panel-body">
 					<form class="form-horizontal col-md-12 col-sm-12" role="form" id="incomeViewForm" autocomplete="off" method="post">
@@ -135,7 +135,7 @@
             					echo $income;
 							?></td>
 						</tr>
-						<tr class="info">
+						<tr class="success">
 							<td colspan="2" style="text-align:right"><strong><?php echo $monthName;?>'s Church Bank balance ₹</strong></td>
 							<td><?php 
 								$balance=$income-$expenditure;
@@ -156,29 +156,11 @@
             					echo $income;
 							?></td>
 						</tr>
-						<tr class="warning">
-							<td colspan="2" style="text-align:right"><strong><?php echo $monthName;?>'s Church Bank balance ₹</strong></td>
+						<tr class="success">
+							<td colspan="2" style="text-align:right"><strong><?php echo $monthName;?>'s School Bank balance ₹</strong></td>
 							<td><?php 
 								$balance=$income-$expenditure;
             					echo $balance;
-							?></td>
-						</tr>
-						<tr class='success'>
-							<td colspan="2" style="text-align:right"><strong>Church bank balance ₹</strong></td>
-							<td><?php 
-								$income = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='income'") or ($income=0);
-								$expenditure = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='expenditure'") or ($expenditure=0);
-								$balance=$income-$expenditure;
-								echo $balance;
-							?></td>
-						</tr>
-						<tr class='success'>
-							<td colspan="2" style="text-align:right"><strong>School bank balance ₹</strong></td>
-							<td><?php 
-								$income = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='school' and type='income'") or ($income=0);
-								$expenditure = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='school' and type='expenditure'") or ($expenditure=0);
-								$balance=$income-$expenditure;
-								echo $balance;
 							?></td>
 						</tr>
 						</tbody>

@@ -115,17 +115,40 @@
 							?></td>
 						</tr>
 						<tr>
-							<td colspan="2" style="text-align:right"><strong>Bank balance ₹</strong></td>
+							<td colspan="2" style="text-align:right"><strong><?php echo $monthName;?>'s Total Bank balance ₹</strong></td>
 							<td><?php 
 								$balance=$income-$expenditure;
             					echo $balance;
 							?></td>
 						</tr>
-						<tr class='success'>
-							<td colspan="2" style="text-align:right"><strong>Total Bank balance ₹</strong></td>
+						<tr class="info">
+							<td colspan="2" style="text-align:right"><strong><?php echo $monthName;?>'s Church Income ₹</strong></td>
 							<td><?php 
-								$income = $db->querySingle("SELECT SUM(amount) FROM record WHERE type='income'") or ($income=0);
-								$expenditure = $db->querySingle("SELECT SUM(amount) FROM record WHERE type='expenditure'") or ($Expenditure=0);
+								$income = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='income' and strftime('%Y-%m',date)='".$year."-".$month."'") or ($income=0);
+            					echo $income;
+							?></td>
+						</tr>
+						<tr class="warning">
+							<td colspan="2" style="text-align:right"><strong><?php echo $monthName;?>'s School Income ₹</strong></td>
+							<td><?php 
+								$income = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='school' and type='income' and strftime('%Y-%m',date)='".$year."-".$month."'") or ($income=0);
+            					echo $income;
+							?></td>
+						</tr>
+						<tr class='success'>
+							<td colspan="2" style="text-align:right"><strong>Church bank balance ₹</strong></td>
+							<td><?php 
+								$income = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='income'") or ($income=0);
+								$expenditure = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='expenditure'") or ($expenditure=0);
+								$balance=$income-$expenditure;
+								echo $balance;
+							?></td>
+						</tr>
+						<tr class='success'>
+							<td colspan="2" style="text-align:right"><strong>School bank balance ₹</strong></td>
+							<td><?php 
+								$income = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='school' and type='income'") or ($income=0);
+								$expenditure = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='school' and type='expenditure'") or ($expenditure=0);
 								$balance=$income-$expenditure;
 								echo $balance;
 							?></td>

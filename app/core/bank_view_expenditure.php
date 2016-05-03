@@ -124,15 +124,43 @@
 						<tr class="info">
 							<td colspan="2" style="text-align:right"><strong><?php echo $monthName;?>'s Church Expenditure ₹</strong></td>
 							<td><?php 
-								$income = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='expenditure' and strftime('%Y-%m',date)='".$year."-".$month."'") or ($income=0);
+								$expenditure = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='expenditure' and strftime('%Y-%m',date)='".$year."-".$month."'") or ($expenditure=0);
+            					echo $expenditure;
+							?></td>
+						</tr>
+						<tr class="info">
+							<td colspan="2" style="text-align:right"><strong><?php echo $monthName;?>'s Church Income ₹</strong></td>
+							<td><?php 
+								$income = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='income' and strftime('%Y-%m',date)='".$year."-".$month."'") or ($income=0);
             					echo $income;
+							?></td>
+						</tr>
+						<tr class="info">
+							<td colspan="2" style="text-align:right"><strong><?php echo $monthName;?>'s Church Bank balance ₹</strong></td>
+							<td><?php 
+								$balance=$income-$expenditure;
+            					echo $balance;
 							?></td>
 						</tr>
 						<tr class="warning">
 							<td colspan="2" style="text-align:right"><strong><?php echo $monthName;?>'s School Expenditure ₹</strong></td>
 							<td><?php 
-								$income = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='school' and type='expenditure' and strftime('%Y-%m',date)='".$year."-".$month."'") or ($income=0);
+								$expenditure = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='school' and type='expenditure' and strftime('%Y-%m',date)='".$year."-".$month."'") or ($expenditure=0);
+            					echo $expenditure;
+							?></td>
+						</tr>
+						<tr class="warning">
+							<td colspan="2" style="text-align:right"><strong><?php echo $monthName;?>'s School Income ₹</strong></td>
+							<td><?php 
+								$income = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='school' and type='income' and strftime('%Y-%m',date)='".$year."-".$month."'") or ($income=0);
             					echo $income;
+							?></td>
+						</tr>
+						<tr class="warning">
+							<td colspan="2" style="text-align:right"><strong><?php echo $monthName;?>'s Church Bank balance ₹</strong></td>
+							<td><?php 
+								$balance=$income-$expenditure;
+            					echo $balance;
 							?></td>
 						</tr>
 						<tr class='success'>

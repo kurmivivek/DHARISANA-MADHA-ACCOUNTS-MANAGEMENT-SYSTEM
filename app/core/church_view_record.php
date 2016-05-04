@@ -113,13 +113,13 @@
 							<td colspan="3" style="text-align:right"><strong>TOTAL ₹ :</strong></td>
 							<td><strong><?php 
 								$income = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='income' and strftime('%Y-%m',date)='".$year."-".$month."'") or ($income=0);
-            					echo $income;
+            					echo number_format((float)$income, 2, '.', '');
 							?></strong></td>
 							<td><strong><?php 
 								$expenditure = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='expenditure' and strftime('%Y-%m',date)='".$year."-".$month."'") or ($expenditure=0);
-            					echo $expenditure;
+            					echo number_format((float)$expenditure, 2, '.', '');
 							?></strong></td>
-							<td colspan="5" style="text-align:center"><strong><?php echo $monthName;?>'s Church Bank balance ₹ : <?php echo $income-$expenditure;?></strong></td>
+							<td colspan="5" style="text-align:center"><strong><?php echo $monthName;?>'s Church Bank balance ₹ : <?php echo number_format((float)$income-(float)$expenditure, 2, '.', '');?></strong></td>
 						</tr>
 						</tbody>
 						</table>

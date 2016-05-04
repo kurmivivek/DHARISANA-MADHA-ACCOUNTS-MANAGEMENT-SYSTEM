@@ -94,6 +94,7 @@
 						$result = $db->query("SELECT strftime('%d-%m-%Y',date) as date,category,sum(amount) as amount from record where type='expenditure' and strftime('%Y-%m',date)='".$year."-".$month."' group by strftime('%Y-%m-%d',date),category") or die("Query failed");
 						while ($row = $result->fetchArray())
 						{
+							$row['amount']=number_format((float)$row['amount'], 2, '.', '');
 							if($row['category']=='church')
 								echo "<tr class='info'><td>{$row['date']}</td><td>{$row['category']}</td><td>{$row['amount']}</td></tr>";
 							else	
@@ -104,63 +105,63 @@
 							<td colspan="2" style="text-align:right"><strong>Total Expenditure ₹</strong></td>
 							<td><?php 
 								$expenditure = $db->querySingle("SELECT SUM(amount) FROM record WHERE type='expenditure' and strftime('%Y-%m',date)='".$year."-".$month."'") or ($expenditure=0);
-            					echo $expenditure;
+            					echo number_format((float)$expenditure, 2, '.', '');
 							?></td>
 						</tr>
 						<tr>
 							<td colspan="2" style="text-align:right"><strong>Total Income ₹</strong></td>
 							<td><?php 
 								$income = $db->querySingle("SELECT SUM(amount) FROM record WHERE type='income' and strftime('%Y-%m',date)='".$year."-".$month."'") or ($income=0);
-            					echo $income;
+            					echo number_format((float)$income, 2, '.', '');
 							?></td>
 						</tr>
 						<tr>
 							<td colspan="2" style="text-align:right"><strong><?php echo $monthName;?>'s Total Bank balance ₹</strong></td>
 							<td><?php 
 								$balance=$income-$expenditure;
-            					echo $balance;
+            					echo number_format((float)$balance, 2, '.', '');
 							?></td>
 						</tr>
 						<tr class="info">
 							<td colspan="2" style="text-align:right"><strong><?php echo $monthName;?>'s Church Expenditure ₹</strong></td>
 							<td><?php 
 								$expenditure = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='expenditure' and strftime('%Y-%m',date)='".$year."-".$month."'") or ($expenditure=0);
-            					echo $expenditure;
+            					echo number_format((float)$expenditure, 2, '.', '');
 							?></td>
 						</tr>
 						<tr class="info">
 							<td colspan="2" style="text-align:right"><strong><?php echo $monthName;?>'s Church Income ₹</strong></td>
 							<td><?php 
 								$income = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='income' and strftime('%Y-%m',date)='".$year."-".$month."'") or ($income=0);
-            					echo $income;
+            					echo number_format((float)$income, 2, '.', '');
 							?></td>
 						</tr>
 						<tr class="success">
 							<td colspan="2" style="text-align:right"><strong><?php echo $monthName;?>'s Church Bank balance ₹</strong></td>
 							<td><?php 
 								$balance=$income-$expenditure;
-            					echo $balance;
+            					echo number_format((float)$balance, 2, '.', '');
 							?></td>
 						</tr>
 						<tr class="warning">
 							<td colspan="2" style="text-align:right"><strong><?php echo $monthName;?>'s School Expenditure ₹</strong></td>
 							<td><?php 
 								$expenditure = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='school' and type='expenditure' and strftime('%Y-%m',date)='".$year."-".$month."'") or ($expenditure=0);
-            					echo $expenditure;
+            					echo number_format((float)$expenditure, 2, '.', '');
 							?></td>
 						</tr>
 						<tr class="warning">
 							<td colspan="2" style="text-align:right"><strong><?php echo $monthName;?>'s School Income ₹</strong></td>
 							<td><?php 
 								$income = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='school' and type='income' and strftime('%Y-%m',date)='".$year."-".$month."'") or ($income=0);
-            					echo $income;
+            					echo number_format((float)$income, 2, '.', '');
 							?></td>
 						</tr>
 						<tr class="success">
 							<td colspan="2" style="text-align:right"><strong><?php echo $monthName;?>'s School Bank balance ₹</strong></td>
 							<td><?php 
 								$balance=$income-$expenditure;
-            					echo $balance;
+            					echo number_format((float)$balance, 2, '.', '');
 							?></td>
 						</tr>
 						</tbody>

@@ -114,7 +114,6 @@
 							<span class="col-md-7" style="text-align:right"><strong>Balance: ₹</strong></span><span id="balance"><?php echo number_format((float)$balance, 2, '.', '');?></span>
 						</div>
 					</div>
-					<button type="button" onclick="updateBalance();">update</button>
 				</div>
 			</div>
 		</div>

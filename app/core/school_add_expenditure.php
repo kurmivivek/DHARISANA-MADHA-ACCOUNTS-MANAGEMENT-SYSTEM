@@ -91,7 +91,7 @@
 						$result = $db->query("SELECT *,strftime('%d-%m-%Y',date) as date,strftime('%d-%m-%Y %H:%M',timestamp) as entry_date FROM (SELECT * FROM record WHERE category='school' and type='expenditure' ORDER BY id DESC LIMIT 5) ORDER BY id ASC") or die("Query failed");
 						while ($row = $result->fetchArray())
 						{
-						echo "<tr><td>{$row['date']}</td><td>{$row['name']}</td><td>{$row['receipt_no']}</td><td>{$row['amount']}</td><td>{$row['bill_no']}</td><td>{$row['ledger_page_no']}</td><td>{$row['operator_name']}</td><td>{$row['entry_date']}</td><td><a href='payment_edit.php?sel_payment_id={$row['id']}' class='btn btn-info' role='button'>Edit</a></td></tr>";
+						echo "<tr><td>{$row['date']}</td><td>{$row['name']}</td><td>{$row['receipt_no']}</td><td>{$row['amount']}</td><td>{$row['bill_no']}</td><td>{$row['ledger_page_no']}</td><td>{$row['operator_name']}</td><td>{$row['entry_date']}</td><td><a href='edit_record.php?id={$row['id']}' class='btn btn-info' role='button'>Edit</a></td></tr>";
 						}
 						?>
 						</tbody>

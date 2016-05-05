@@ -102,10 +102,10 @@
 						while ($row = $result->fetchArray())
 						{
 							if($row['type']=='income'){
-							echo "<tr><td>{$row['date']}</td><td>{$row['name']}</td><td>{$row['receipt_no']}</td><td>{$row['amount']}</td><td></td><td></td><td>{$row['ledger_page_no']}</td><td>{$row['operator_name']}</td><td>{$row['entry_date']}</td><td><a href='payment_edit.php?sel_payment_id={$row['id']}' class='btn btn-info' role='button'>Edit</a></td></tr>";
+							echo "<tr><td>{$row['date']}</td><td>{$row['name']}</td><td>{$row['receipt_no']}</td><td>{$row['amount']}</td><td></td><td></td><td>{$row['ledger_page_no']}</td><td>{$row['operator_name']}</td><td>{$row['entry_date']}</td><td><a href='edit_record.php?id={$row['id']}' class='btn btn-info' role='button'>Edit</a></td></tr>";
 							}
 							else{
-							echo "<tr><td>{$row['date']}</td><td>{$row['name']}</td><td>{$row['receipt_no']}</td><td></td><td>{$row['amount']}</td><td>{$row['bill_no']}</td><td>{$row['ledger_page_no']}</td><td>{$row['operator_name']}</td><td>{$row['entry_date']}</td><td><a href='payment_edit.php?sel_payment_id={$row['id']}' class='btn btn-info' role='button'>Edit</a></td></tr>";
+							echo "<tr><td>{$row['date']}</td><td>{$row['name']}</td><td>{$row['receipt_no']}</td><td></td><td>{$row['amount']}</td><td>{$row['bill_no']}</td><td>{$row['ledger_page_no']}</td><td>{$row['operator_name']}</td><td>{$row['entry_date']}</td><td><a href='edit_record.php?id={$row['id']}' class='btn btn-info' role='button'>Edit</a></td></tr>";
 							}
 						}
 						?>

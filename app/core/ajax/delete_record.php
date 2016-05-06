@@ -18,7 +18,7 @@ if(isset(  $_GET['id'] ))
 	}
 }
 if(isset($_GET['url']) && $_GET['url']!='')
-	header("location:".$_GET['url']."?dSuccess=".$dSuccess);
+	header("location:".array_shift(explode("?", $_GET['url']))."?dSuccess=".$dSuccess);
 else
 	header("Location:../home.php?dSuccess=".$dSuccess);
 ?>

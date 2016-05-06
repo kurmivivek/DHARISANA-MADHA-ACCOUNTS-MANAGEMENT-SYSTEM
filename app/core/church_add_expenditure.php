@@ -203,7 +203,7 @@ $(document).ready(function()	{
                 // ... Process the result ...
                 if(result['success']){
                 	var d = new Date();
-                	$('#recordTable tbody').append("<tr class='success'><td>"+result['date']+"</td><td>"+result['name']+"</td><td>"+result['receipt_no']+"</td><td>"+result['amount']+"</td><td>"+result['bill_no']+"</td><td>"+result['ledger_page_no']+"</td><td><?php echo $_COOKIE['admin_name']?></td><td>"+pad(d.getDate())+"-"+pad(d.getMonth()+1)+"-"+d.getFullYear()+" "+pad(d.getHours())+":"+pad(d.getMinutes())+"</td><td><a href='payment_edit.php?sel_payment_id="+result['id']+"' class='btn btn-info' role='button'>Edit</a></td></tr>");
+                	$('#recordTable tbody').append("<tr class='success'><td>"+result['date']+"</td><td>"+result['name']+"</td><td>"+result['receipt_no']+"</td><td>"+result['amount']+"</td><td>"+result['bill_no']+"</td><td>"+result['ledger_page_no']+"</td><td><?php echo $_COOKIE['admin_name']?></td><td>"+pad(d.getDate())+"-"+pad(d.getMonth()+1)+"-"+d.getFullYear()+" "+pad(d.getHours())+":"+pad(d.getMinutes())+"</td><td><a href='edit_record.php?id="+result['id']+"' class='btn btn-info' role='button'>Edit</a></td></tr>");
                 	var balance=$("#balance").text();
                 	var expenditure=$("#expenditure").text();
                 	var amount=result['amount'];

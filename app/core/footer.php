@@ -35,5 +35,28 @@ $(document).keydown(function(e) {
     }
 });
 </script>
+<?php if(isset($_GET['dSuccess'])){?>
+<script>
+<?php if($_GET['dSuccess']==1){?>
+$( window ).load(function() {
+    swal({  title: "Success!",   
+	text: "The record has been sucessfully deleted",
+	type: "success",   
+	timer: 2000,   
+	allowOutsideClick: true
+	 });
+});
+<?php } 
+else{?>
+$( window ).load(function() {
+    swal({  title: "Error!",   
+		text: "The record couldn't be deleted.Please try again",
+		type: "error",     
+		allowOutsideClick: true
+		 });
+});
+<?php }?>
+</script>
+<?php }?>
 </body>
 </html>

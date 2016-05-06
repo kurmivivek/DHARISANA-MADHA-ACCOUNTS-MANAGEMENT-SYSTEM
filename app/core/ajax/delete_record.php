@@ -1,4 +1,5 @@
-<?php 
+<?php
+$dSuccess=0; 
 if(isset(  $_GET['id'] ))
 {
 	extract($_POST);
@@ -13,10 +14,11 @@ if(isset(  $_GET['id'] ))
 	else
 	{
 		$tran=$db->querySingle("COMMIT");
+		$dSuccess=1;
 	}
 }
 if(isset($_GET['url']) && $_GET['url']!='')
-	header("location:".$_GET['url']);
+	header("location:".$_GET['url']."?dSuccess=".$dSuccess);
 else
-	header("Location:../home.php");
+	header("Location:../home.php?dSuccess=".$dSuccess);
 ?>

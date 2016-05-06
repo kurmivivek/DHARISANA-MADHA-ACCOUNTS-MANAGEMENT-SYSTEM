@@ -103,21 +103,21 @@
 						?>
 						<tr>
 							<td colspan="2" style="text-align:right"><strong>Total Expenditure ₹</strong></td>
-							<td><?php 
+							<td data-toggle="tooltip" data-original-title="Total Expenditure of Church and School Combined for the current month"><?php 
 								$expenditure = $db->querySingle("SELECT SUM(amount) FROM record WHERE type='expenditure' and strftime('%Y-%m',date)='".$year."-".$month."'") or ($expenditure=0);
             					echo number_format((float)$expenditure, 2, '.', '');
 							?></td>
 						</tr>
 						<tr>
 							<td colspan="2" style="text-align:right"><strong>Total Income ₹</strong></td>
-							<td><?php 
+							<td data-toggle="tooltip" data-original-title="Total Income of Church and School Combined for the current month"><?php 
 								$income = $db->querySingle("SELECT SUM(amount) FROM record WHERE type='income' and strftime('%Y-%m',date)='".$year."-".$month."'") or ($income=0);
             					echo number_format((float)$income, 2, '.', '');
 							?></td>
 						</tr>
 						<tr>
 							<td colspan="2" style="text-align:right"><strong><?php echo $monthName;?>'s Total Bank balance ₹</strong></td>
-							<td><?php 
+							<td data-toggle="tooltip" data-original-title="Total Expenditure subtracted from the Income of Church and School Combined for the current month"><?php 
 								$balance=$income-$expenditure;
             					echo number_format((float)$balance, 2, '.', '');
 							?></td>

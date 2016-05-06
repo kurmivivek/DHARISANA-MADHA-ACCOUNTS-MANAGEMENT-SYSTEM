@@ -58,5 +58,12 @@ $( window ).load(function() {
 <?php }?>
 </script>
 <?php }?>
+<script type="text/javascript">
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip({
+        placement : 'right'
+    });
+});
+</script>
 </body>
 </html>

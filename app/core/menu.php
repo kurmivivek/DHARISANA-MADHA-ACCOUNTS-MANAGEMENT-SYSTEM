@@ -1,7 +1,7 @@
 <body id="home">
 <!-- Navigation bar starts-->
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-		<a class="navbar-brand" href="home.php" style="color:#fff;font-weight:600;"> DHARISANA MADHA WELFARE ASSOCIATION'S ACCOUNTS MANAGMENT SYSTEM</a>
+		<a class="navbar-brand" href="home.php" style="color:#fff;font-weight:600;"> DHARISANA MADHA ACCOUNTS MANAGMENT SYSTEM</a>
         <ul class="nav navbar-nav">
            <li class="dropdown">
                 <a href="#" role="button" aria-expanded="false"> Church<span class="caret"></span></a>

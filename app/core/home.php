@@ -14,7 +14,7 @@
 					<h3>Home Screen</h3>
 				</div>
 				<div class="panel-body">
-						Welcome to the DHARISANA MADHA WELFARE ASSOCIATION'S Accounts Managment System!
+						Welcome to the DHARISANA MADHA Accounts Managment System!
 					<div class="col-md-12">
 						<canvas id="churchChart"></canvas>
 					</div>

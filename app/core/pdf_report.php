@@ -60,7 +60,14 @@ $y_axis_initial = 10;
 //print column titles for the actual page
 $pdf->SetFillColor(232, 232, 232);
 $pdf->SetFont('Arial','B',16);
-$pdf->Cell(0,5,'DHARISANA MADHA WELFARE ASSOCIATION',0,0,'C');
+if($category=='church')
+$pdf->Cell(0,5,'DHARISANA MADHA CHURCH',0,0,'C');
+else{
+$pdf->Cell(0,5,'BLESSED VIRGIN MARY CHILD CARE',0,0,'C');
+$pdf->ln();
+$pdf->SetFont('Arial','B',12);
+$pdf->Cell(0,5,'DHARISANA MADHA CHURCH',0,0,'C');
+}
 $pdf->ln();
 $pdf->SetFont('Arial','BI',12);
 $pdf->Cell(0,10,$monthName."'s ".ucwords($category)." Report",0,0,'C');
@@ -129,7 +136,7 @@ while($row = $result->fetchArray())
     $pdf->Cell(25, 6, $row['date'], 1, 0, 'C', 1);
 	$pdf->Cell(40, 6, $row['name'], 1, 0, 'C', 1);
 	$pdf->Cell(25, 6, $row['receipt_no'], 1, 0, 'C', 1);
-	$pdf->Cell(25, 6, $row['amount'], 1, 0, 'C', 1);
+	$pdf->Cell(25, 6, $row['amount'], 1, 0, 'R', 1);
 	$pdf->Cell(25, 6, '', 1, 0, 'C', 1);
 	$pdf->Cell(25, 6, '', 1, 0, 'C', 1);
 	$pdf->Cell(40, 6, $row['ledger_page_no'], 1, 0, 'C', 1);
@@ -139,7 +146,7 @@ while($row = $result->fetchArray())
 	$pdf->Cell(40, 6, $row['name'], 1, 0, 'C', 1);
 	$pdf->Cell(25, 6, $row['receipt_no'], 1, 0, 'C', 1);
 	$pdf->Cell(25, 6, '', 1, 0, 'C', 1);
-	$pdf->Cell(25, 6, $row['amount'], 1, 0, 'C', 1);
+	$pdf->Cell(25, 6, $row['amount'], 1, 0, 'R', 1);
 	$pdf->Cell(25, 6, $row['bill_no'], 1, 0, 'C', 1);
 	$pdf->Cell(40, 6, $row['ledger_page_no'], 1, 0, 'C', 1);
 	}
@@ -156,8 +163,21 @@ $pdf->SetFont('Arial', 'B', 12);
 $pdf->ln();
 $pdf->SetX(2);
 $pdf->Cell(90, 6, 'Total : ', 1, 0, 'R', 1);
-$pdf->Cell(25, 6, number_format((float)$income, 2, '.', ''), 1, 0, 'C', 1);
-$pdf->Cell(25, 6, number_format((float)$expenditure, 2, '.', ''), 1, 0, 'C', 1);
+$pdf->Cell(25, 6, number_format((float)$income, 2, '.', ''), 1, 0, 'R', 1);
+$pdf->Cell(25, 6, number_format((float)$expenditure, 2, '.', ''), 1, 0, 'R', 1);
 $pdf->Cell(65, 6, 'Bank balance:'.number_format((float)$balance, 2, '.', ''), 1, 0, 'C', 1);
+if($category=='church'){
+	$income = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='income'") or ($income=0);		
+	$expenditure = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='expenditure'") or ($expenditure=0);		
+	$balance=$income-$expenditure;
+}
+else{
+	$income = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='school' and type='income'") or ($income=0);		
+	$expenditure = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='school' and type='expenditure'") or ($expenditure=0);		
+	$balance=$income-$expenditure;
+}
+$pdf->ln();
+$pdf->SetX(2);
+$pdf->Cell(205, 6, 'Cumulative Bank balance: '.number_format((float)$balance, 2, '.', ''), 1, 0, 'C', 1);
 $pdf->Output();
 ?>

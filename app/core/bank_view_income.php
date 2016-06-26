@@ -122,6 +122,7 @@
             					echo number_format((float)$balance, 2, '.', '');
 							?></td>
 						</tr>
+						<tr><td></td><td></td><td></td></tr>
 						<tr class="info">
 							<td colspan="2" style="text-align:right"><strong><?php echo $monthName;?>'s Church Income ₹</strong></td>
 							<td><?php 
@@ -143,6 +144,16 @@
             					echo number_format((float)$balance, 2, '.', '');
 							?></td>
 						</tr>
+						<tr>		
+ 							<td colspan="2" style="text-align:right"><strong>Church Cumulative bank balance ₹</strong></td>		
+ 							<td data-toggle="tooltip" data-original-title="Bank balance of all months combined"><?php 		
+ 								$income = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='income'") or ($income=0);		
+ 								$expenditure = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='expenditure'") or ($expenditure=0);		
+ 								$balance=$income-$expenditure;		
+ 								echo number_format((float)$balance, 2, '.', '');		
+ 							?></td>		
+ 						</tr>
+ 						<tr><td></td><td></td><td></td></tr>
 						<tr class="warning">
 							<td colspan="2" style="text-align:right"><strong><?php echo $monthName;?>'s School Income ₹</strong></td>
 							<td><?php 
@@ -164,6 +175,15 @@
             					echo number_format((float)$balance, 2, '.', '');
 							?></td>
 						</tr>
+						<tr>		
+ 							<td colspan="2" style="text-align:right"><strong>School Cumulative bank balance ₹</strong></td>		
+ 							<td data-toggle="tooltip" data-original-title="Bank balance of all months combined"><?php 		
+ 								$income = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='school' and type='income'") or ($income=0);		
+ 								$expenditure = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='school' and type='expenditure'") or ($expenditure=0);		
+ 								$balance=$income-$expenditure;		
+ 								echo number_format((float)$balance, 2, '.', '');		
+ 							?></td>		
+ 						</tr>
 						</tbody>
 						</table>
 					</div>

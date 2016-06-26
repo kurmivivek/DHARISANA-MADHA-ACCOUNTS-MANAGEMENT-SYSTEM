@@ -120,6 +120,14 @@
 							<span class="col-md-7" style="text-align:right"><strong>Total Expenditure: ₹</strong></span><span id="expenditure"><?php echo number_format((float)$expenditure, 2, '.', '')?></span><br/>
 							<span class="col-md-7" style="text-align:right"><strong>Balance: ₹</strong></span><span id="balance"><?php echo number_format((float)$balance, 2, '.', '');?></span>
 						</div>
+						<div class="col-md-12">		
+ 							<?php 		
+ 							$income = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='income'") or ($income=0);		
+ 							$expenditure = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='expenditure'") or ($Expenditure=0);		
+ 							$balance=$income-$expenditure		
+ 							?>		
+ 							<span class="col-md-12" style="text-align:center"><strong>Church Cumulative Bank Balance: ₹ </strong><span id="total_balance"><?php echo number_format((float)$balance, 2, '.', '');?></span></span>		
+ 						</div>
 					</div>
 				</div>
 			</div>
@@ -204,11 +212,14 @@ $(document).ready(function()	{
                 if(result['success']){
                 	var d = new Date();
                 	$('#recordTable tbody').append("<tr class='success'><td>"+result['date']+"</td><td>"+result['name']+"</td><td>"+result['receipt_no']+"</td><td>"+result['amount']+"</td><td>"+result['bill_no']+"</td><td>"+result['ledger_page_no']+"</td><td><?php echo $_COOKIE['admin_name']?></td><td>"+pad(d.getDate())+"-"+pad(d.getMonth()+1)+"-"+d.getFullYear()+" "+pad(d.getHours())+":"+pad(d.getMinutes())+"</td><td><a href='edit_record.php?id="+result['id']+"' class='btn btn-info' role='button'>Edit</a></td></tr>");
+                	var total_balance=$("#total_balance").text();
                 	var balance=$("#balance").text();
                 	var expenditure=$("#expenditure").text();
                 	var amount=result['amount'];
+                	total_balance=parseFloat(total_balance)-parseFloat(amount);
                 	balance=parseFloat(balance)-parseFloat(amount);
                 	expenditure=parseFloat(expenditure)+parseFloat(amount);
+                	$("#total_balance").text(total_balance.toFixed(2));
                 	$("#balance").text(balance.toFixed(2));
                 	$("#expenditure").text(expenditure.toFixed(2));
                 	swal({  title: "Success!",   

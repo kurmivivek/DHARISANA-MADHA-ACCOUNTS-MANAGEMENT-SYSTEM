@@ -121,6 +121,15 @@
 							?></strong></td>
 							<td colspan="5" style="text-align:center"><strong><?php echo $monthName;?>'s School Bank balance ₹ : <?php echo number_format((float)$income-(float)$expenditure, 2, '.', '');?></strong></td>
 						</tr>
+						<tr class="info">		
+ 							<td data-toggle="tooltip" data-original-title="Bank balance of all months combined" colspan="10" style="text-align:center"><strong>School bank Cumulative balance ₹ : 	
+ 							<?php 		
+ 								$income = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='school' and type='income'") or ($income=0);		
+ 								$expenditure = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='school' and type='expenditure'") or ($expenditure=0);		
+ 								$balance=$income-$expenditure;		
+ 								echo number_format((float)$balance, 2, '.', '');		
+ 							?></strong></td>		
+ 						</tr>
 						</tbody>
 						</table>
 					</div>

@@ -76,12 +76,12 @@ $pdf->SetFont('Arial', 'B', 12);
 $pdf->SetY(30);
 $pdf->SetX(2);
 $pdf->Cell(25, 6, 'Date', 1, 0, 'C', 1);
-$pdf->Cell(40, 6, 'NAME', 1, 0, 'C', 1);
-$pdf->Cell(25, 6, 'Receipt #', 1, 0, 'C', 1);
+$pdf->Cell(75, 6, 'NAME', 1, 0, 'C', 1);
+$pdf->Cell(20, 6, 'Receipt #', 1, 0, 'C', 1);
 $pdf->Cell(25, 6, 'Income', 1, 0, 'C', 1);
 $pdf->Cell(25, 6, 'Expenditure', 1, 0, 'C', 1);
-$pdf->Cell(25, 6, 'Bill No', 1, 0, 'C', 1);
-$pdf->Cell(40, 6, 'Page No of ledger', 1, 0, 'C', 1);
+$pdf->Cell(15, 6, 'Bill No', 1, 0, 'C', 1);
+$pdf->Cell(20, 6, 'Ledger #', 1, 0, 'C', 1);
 $row_height = 6;
 $y_axis = 30;
 $y_axis = $y_axis + $row_height;
@@ -90,7 +90,7 @@ $y_axis = $y_axis + $row_height;
 $i = 0;
 
 //Set maximum rows per page
-$max = 41;
+$max = 39;
 
 //Set Row Height
 
@@ -110,12 +110,12 @@ while($row = $result->fetchArray())
         $pdf->SetY($y_axis_initial);
         $pdf->SetX(2);
         $pdf->Cell(25, 6, 'Date', 1, 0, 'C', 1);
-		$pdf->Cell(40, 6, 'NAME', 1, 0, 'C', 1);
-		$pdf->Cell(25, 6, 'Receipt #', 1, 0, 'C', 1);
+		$pdf->Cell(75, 6, 'NAME', 1, 0, 'C', 1);
+		$pdf->Cell(20, 6, 'Receipt #', 1, 0, 'C', 1);
 		$pdf->Cell(25, 6, 'Income', 1, 0, 'C', 1);
 		$pdf->Cell(25, 6, 'Expenditure', 1, 0, 'C', 1);
-		$pdf->Cell(25, 6, 'Bill No', 1, 0, 'C', 1);
-		$pdf->Cell(40, 6, 'Page No of ledger', 1, 0, 'C', 1);
+		$pdf->Cell(15, 6, 'Bill No', 1, 0, 'C', 1);
+		$pdf->Cell(20, 6, 'Ledger #', 1, 0, 'C', 1);
         
         //Go to next row
         $y_axis = 10;
@@ -123,9 +123,9 @@ while($row = $result->fetchArray())
         
         //Set $i variable to 0 (first row)
         $i = 0;
-        if($max==41)
+        if($max==39)
         {
-			$max=44;
+			$max=42;
 		}
     }
 	$pdf->SetFillColor(255, 255, 255);
@@ -134,21 +134,21 @@ while($row = $result->fetchArray())
     $pdf->SetX(2);
     if($row['type']=="income"){
     $pdf->Cell(25, 6, $row['date'], 1, 0, 'C', 1);
-	$pdf->Cell(40, 6, $row['name'], 1, 0, 'C', 1);
-	$pdf->Cell(25, 6, $row['receipt_no'], 1, 0, 'C', 1);
+	$pdf->Cell(75, 6, substr($row['name'],0,27), 1, 0, 'C', 1);
+	$pdf->Cell(20, 6, $row['receipt_no'], 1, 0, 'C', 1);
 	$pdf->Cell(25, 6, $row['amount'], 1, 0, 'R', 1);
 	$pdf->Cell(25, 6, '', 1, 0, 'C', 1);
-	$pdf->Cell(25, 6, '', 1, 0, 'C', 1);
-	$pdf->Cell(40, 6, $row['ledger_page_no'], 1, 0, 'C', 1);
+	$pdf->Cell(15, 6, '', 1, 0, 'C', 1);
+	$pdf->Cell(20, 6, $row['ledger_page_no'], 1, 0, 'C', 1);
 	}
 	else{
     $pdf->Cell(25, 6, $row['date'], 1, 0, 'C', 1);
-	$pdf->Cell(40, 6, $row['name'], 1, 0, 'C', 1);
-	$pdf->Cell(25, 6, $row['receipt_no'], 1, 0, 'C', 1);
+	$pdf->Cell(75, 6, substr($row['name'],0,27), 1, 0, 'C', 1);
+	$pdf->Cell(20, 6, $row['receipt_no'], 1, 0, 'C', 1);
 	$pdf->Cell(25, 6, '', 1, 0, 'C', 1);
 	$pdf->Cell(25, 6, $row['amount'], 1, 0, 'R', 1);
-	$pdf->Cell(25, 6, $row['bill_no'], 1, 0, 'C', 1);
-	$pdf->Cell(40, 6, $row['ledger_page_no'], 1, 0, 'C', 1);
+	$pdf->Cell(15, 6, $row['bill_no'], 1, 0, 'C', 1);
+	$pdf->Cell(20, 6, $row['ledger_page_no'], 1, 0, 'C', 1);
 	}
 
     //Go to next row
@@ -157,15 +157,15 @@ while($row = $result->fetchArray())
 }
 $income = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='".$category."' and type='income' and strftime('%Y-%m',date)='".$year."-".$month."'") or ($income=0);
 $expenditure = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='".$category."' and type='expenditure' and strftime('%Y-%m',date)='".$year."-".$month."'") or ($expenditure=0);
-$balance=$income-$expenditure;
+$monthly_balance=$income-$expenditure;
 $pdf->SetFillColor(232, 232, 232);
 $pdf->SetFont('Arial', 'B', 12);
 $pdf->ln();
 $pdf->SetX(2);
-$pdf->Cell(90, 6, 'Total : ', 1, 0, 'R', 1);
+$pdf->Cell(120, 6, 'Total : ', 1, 0, 'R', 1);
 $pdf->Cell(25, 6, number_format((float)$income, 2, '.', ''), 1, 0, 'R', 1);
 $pdf->Cell(25, 6, number_format((float)$expenditure, 2, '.', ''), 1, 0, 'R', 1);
-$pdf->Cell(65, 6, 'Bank balance:'.number_format((float)$balance, 2, '.', ''), 1, 0, 'C', 1);
+$pdf->Cell(35, 6, '', 1, 0, 'C', 1);
 if($category=='church'){
 	$income = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='income'") or ($income=0);		
 	$expenditure = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='expenditure'") or ($expenditure=0);		
@@ -178,6 +178,7 @@ else{
 }
 $pdf->ln();
 $pdf->SetX(2);
-$pdf->Cell(205, 6, 'Cumulative Bank balance: '.number_format((float)$balance, 2, '.', ''), 1, 0, 'C', 1);
+$pdf->Cell(120, 6, 'Cumulative Bank balance: '.number_format((float)$balance, 2, '.', ''), 1, 0, 'C', 1);
+$pdf->Cell(85, 6, 'Bank balance: '.number_format((float)$monthly_balance, 2, '.', ''), 1, 0, 'C', 1);
 $pdf->Output();
 ?>

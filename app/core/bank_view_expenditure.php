@@ -147,8 +147,8 @@
 						<tr>		
  							<td colspan="2" style="text-align:right"><strong>Church Cumulative bank balance ₹</strong></td>		
  							<td data-toggle="tooltip" data-original-title="Bank balance of all months combined"><?php 		
- 								$income = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='income'") or ($income=0);		
- 								$expenditure = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='expenditure'") or ($expenditure=0);		
+ 								$income = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='income' and date < date('".$year."-".$month."-01','start of month','+1 month')") or ($income=0);		
+ 								$expenditure = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='expenditure' and date < date('".$year."-".$month."-01','start of month','+1 month')") or ($expenditure=0);		
  								$balance=$income-$expenditure;		
  								echo number_format((float)$balance, 2, '.', '');		
  							?></td>		
@@ -178,8 +178,8 @@
  						<tr>		
  							<td colspan="2" style="text-align:right"><strong>School Cumulative bank balance ₹</strong></td>		
  							<td data-toggle="tooltip" data-original-title="Bank balance of all months combined"><?php 		
- 								$income = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='school' and type='income'") or ($income=0);		
- 								$expenditure = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='school' and type='expenditure'") or ($expenditure=0);		
+ 								$income = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='school' and type='income' and date < date('".$year."-".$month."-01','start of month','+1 month')") or ($income=0);		
+ 								$expenditure = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='school' and type='expenditure' and date < date('".$year."-".$month."-01','start of month','+1 month')") or ($expenditure=0);		
  								$balance=$income-$expenditure;		
  								echo number_format((float)$balance, 2, '.', '');		
  							?></td>		

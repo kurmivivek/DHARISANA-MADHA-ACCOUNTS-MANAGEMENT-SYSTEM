@@ -124,8 +124,8 @@
 						<tr class="info">		
  							<td data-toggle="tooltip" data-original-title="Bank balance of all months combined" colspan="10" style="text-align:center"><strong>Church Cumulative bank balance ₹ : 	
  							<?php 		
- 								$income = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='income'") or ($income=0);		
- 								$expenditure = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='expenditure'") or ($expenditure=0);		
+ 								$income = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='income' and date < date('".$year."-".$month."-01','start of month','+1 month')") or ($income=0);		
+ 								$expenditure = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='expenditure' and date < date('".$year."-".$month."-01','start of month','+1 month')") or ($expenditure=0);		
  								$balance=$income-$expenditure;		
  								echo number_format((float)$balance, 2, '.', '');		
  							?></strong></td>		

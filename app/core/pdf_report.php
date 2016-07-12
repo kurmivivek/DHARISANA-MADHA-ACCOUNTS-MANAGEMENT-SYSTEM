@@ -167,13 +167,13 @@ $pdf->Cell(25, 6, number_format((float)$income, 2, '.', ''), 1, 0, 'R', 1);
 $pdf->Cell(25, 6, number_format((float)$expenditure, 2, '.', ''), 1, 0, 'R', 1);
 $pdf->Cell(35, 6, '', 1, 0, 'C', 1);
 if($category=='church'){
-	$income = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='income'") or ($income=0);		
-	$expenditure = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='expenditure'") or ($expenditure=0);		
+	$income = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='income' and date < date('".$year."-".$month."-01','start of month','+1 month')") or ($income=0);		
+	$expenditure = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='expenditure' and date < date('".$year."-".$month."-01','start of month','+1 month')") or ($expenditure=0);		
 	$balance=$income-$expenditure;
 }
 else{
-	$income = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='school' and type='income'") or ($income=0);		
-	$expenditure = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='school' and type='expenditure'") or ($expenditure=0);		
+	$income = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='school' and type='income' and date < date('".$year."-".$month."-01','start of month','+1 month')") or ($income=0);		
+	$expenditure = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='school' and type='expenditure' and date < date('".$year."-".$month."-01','start of month','+1 month')") or ($expenditure=0);		
 	$balance=$income-$expenditure;
 }
 $pdf->ln();

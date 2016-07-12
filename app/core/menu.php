@@ -38,7 +38,7 @@
 			  <li class="divider"></li>
 			  <li><a href="login.php?logout"><span class="glyphicon glyphicon-log-out"></span> Sign Out</a></li>
               <li class="divider"></li>
-              <li style="text-align:center">v1.1.0β</li>
+              <li style="text-align:center">v1.1.1β</li>
               <li style="text-align:center">Made with <span class="glyphicon glyphicon-heart" style="color:#c7254e"></span> at <br/><span class="glyphicon glyphicon-fire" style="color:#ec971f"></span><strong>Kode</strong>Ignite<li>
 			</ul>
 		  </div><!-- /btn-group -->	

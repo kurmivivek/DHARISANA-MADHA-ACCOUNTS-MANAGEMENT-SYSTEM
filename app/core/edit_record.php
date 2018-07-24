@@ -74,7 +74,7 @@
 						  <div class="col-md-12">			
 							  <div class="form-group">
 							  	<div class="col-md-offset-2 col-md-2">
-									<button type="button" class="btn-lg btn-primary" onclick="window.location.replace(document.referrer);"><span class="glyphicon glyphicon-chevron-left"></span> Back</button>
+									<button type="button" class="btn-lg btn-primary" onclick="window.location.replace(document.referrer.split('?')[0]);"><span class="glyphicon glyphicon-chevron-left"></span> Back</button>
 								</div>
 							  	<div class="col-md-4">
 								  <a href="ajax/delete_record.php?id=<?php echo $_GET['id'].'&url='.$_SERVER['HTTP_REFERER'];?>" onclick="return confirm ('Are you sure you want to delete this Record!')"><button type="button" class="btn-lg btn-danger"><span class="glyphicon glyphicon-trash"></span> Delete Record</button></a>

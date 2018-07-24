@@ -16,6 +16,7 @@ if(isset(  $_GET['id'] ))
 		$tran=$db->querySingle("COMMIT");
 		$dSuccess=1;
 	}
+	$db->close();
 }
 if(isset($_GET['url']) && $_GET['url']!='')
 	header("location:".array_shift(explode("?", $_GET['url']))."?dSuccess=".$dSuccess);

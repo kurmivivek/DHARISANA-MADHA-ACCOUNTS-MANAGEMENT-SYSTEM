@@ -31,6 +31,7 @@ if(isset(  $_POST['date'] ))
 		$out['success']=true;
 		$out['msg']="Successfully edited the record";
 	}
+	$db->close();
 }
 header('Content-Type: application/json');
 echo json_encode($out);

@@ -32,14 +32,17 @@ if(isset(  $_POST['category'] ))
 		$out['id'] = $db->querySingle("SELECT last_insert_rowid()");
 		$tran=$db->querySingle("COMMIT");
 		$out['success']=true;
+		$temp=explode( '-', $date_unformated);
+		$date_unformated=sprintf("%02d", $temp[0])."-".sprintf("%02d", $temp[1])."-".$temp[2];
 		$out['date']=$date_unformated;
 		$out['name']=$name;
 		$out['receipt_no']=$receipt;
-		$out['amount']=$amount;
+		$out['amount']=formatInIndianStyle($amount);
 		$out['ledger_page_no']=$ledger;
 		$out['bill_no']=$bill;
 		$out['msg']="Successfully added the record";
 	}
+	$db->close();
 }
 header('Content-Type: application/json');
 echo json_encode($out);

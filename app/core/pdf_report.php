@@ -1,8 +1,8 @@
 <?php
 define('FPDF_FONTPATH', 'font/');
 require('fpdf.php');
+require 'functions.php';
 
-//Connect to your database
 class PDF extends FPDF
 {
 	// Page footer
@@ -21,7 +21,6 @@ $pdf=new PDF();
 
 if(isset($_POST['month']))
 {
-	if($_POST['month']<9)
 	$_POST['month']=sprintf("%02d", $_POST['month']);
 	$noOfDays=date("t",mktime(0, 0, 0, $_POST['month'], 1,   $_POST['year']));
 	$monthName=date("F",mktime(0, 0, 0, $_POST['month'], 1,   $_POST['year']));
@@ -134,19 +133,19 @@ while($row = $result->fetchArray())
     $pdf->SetX(2);
     if($row['type']=="income"){
     $pdf->Cell(25, 6, $row['date'], 1, 0, 'C', 1);
-	$pdf->Cell(75, 6, substr($row['name'],0,27), 1, 0, 'C', 1);
+	$pdf->Cell(75, 6, substr($row['name'],0,38), 1, 0, 'C', 1);
 	$pdf->Cell(20, 6, $row['receipt_no'], 1, 0, 'C', 1);
-	$pdf->Cell(25, 6, $row['amount'], 1, 0, 'R', 1);
+	$pdf->Cell(25, 6, formatInIndianStyle($row['amount']), 1, 0, 'R', 1);
 	$pdf->Cell(25, 6, '', 1, 0, 'C', 1);
 	$pdf->Cell(15, 6, '', 1, 0, 'C', 1);
 	$pdf->Cell(20, 6, $row['ledger_page_no'], 1, 0, 'C', 1);
 	}
 	else{
     $pdf->Cell(25, 6, $row['date'], 1, 0, 'C', 1);
-	$pdf->Cell(75, 6, substr($row['name'],0,27), 1, 0, 'C', 1);
+	$pdf->Cell(75, 6, substr($row['name'],0,38), 1, 0, 'C', 1);
 	$pdf->Cell(20, 6, $row['receipt_no'], 1, 0, 'C', 1);
 	$pdf->Cell(25, 6, '', 1, 0, 'C', 1);
-	$pdf->Cell(25, 6, $row['amount'], 1, 0, 'R', 1);
+	$pdf->Cell(25, 6, formatInIndianStyle($row['amount']), 1, 0, 'R', 1);
 	$pdf->Cell(15, 6, $row['bill_no'], 1, 0, 'C', 1);
 	$pdf->Cell(20, 6, $row['ledger_page_no'], 1, 0, 'C', 1);
 	}
@@ -163,8 +162,8 @@ $pdf->SetFont('Arial', 'B', 12);
 $pdf->ln();
 $pdf->SetX(2);
 $pdf->Cell(120, 6, 'Total : ', 1, 0, 'R', 1);
-$pdf->Cell(25, 6, number_format((float)$income, 2, '.', ''), 1, 0, 'R', 1);
-$pdf->Cell(25, 6, number_format((float)$expenditure, 2, '.', ''), 1, 0, 'R', 1);
+$pdf->Cell(25, 6, formatInIndianStyle(number_format((float)$income, 2, '.', '')), 1, 0, 'R', 1);
+$pdf->Cell(25, 6, formatInIndianStyle(number_format((float)$expenditure, 2, '.', '')), 1, 0, 'R', 1);
 $pdf->Cell(35, 6, '', 1, 0, 'C', 1);
 if($category=='church'){
 	$income = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='income' and date < date('".$year."-".$month."-01','start of month','+1 month')") or ($income=0);		
@@ -178,7 +177,7 @@ else{
 }
 $pdf->ln();
 $pdf->SetX(2);
-$pdf->Cell(120, 6, 'Cumulative Bank balance: '.number_format((float)$balance, 2, '.', ''), 1, 0, 'C', 1);
-$pdf->Cell(85, 6, 'Bank balance: '.number_format((float)$monthly_balance, 2, '.', ''), 1, 0, 'C', 1);
+$pdf->Cell(120, 6, 'Cumulative Bank balance: '.formatInIndianStyle(number_format((float)$balance, 2, '.', '')), 1, 0, 'C', 1);
+$pdf->Cell(85, 6, 'Bank balance: '.formatInIndianStyle(number_format((float)$monthly_balance, 2, '.', '')), 1, 0, 'C', 1);
 $pdf->Output();
 ?>

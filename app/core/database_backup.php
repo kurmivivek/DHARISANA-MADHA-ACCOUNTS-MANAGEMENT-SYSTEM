@@ -7,7 +7,7 @@
 ?>
 <?php include 'head.php'; ?>
 <?php include 'menu.php'; ?>
-        <div class="col-sm-9 col-md-9 ">
+        <div class="col-sm-12 col-md-12">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3>Database Backup/Restore</h3>

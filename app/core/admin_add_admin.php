@@ -79,13 +79,13 @@
 								</div>
 							  </div>
 							  <div class="form-group">
-								<label for="newpass" class="col-sm-2 control-label" style="text-align:left"> New password</label>
+								<label for="newpass" class="col-sm-2 control-label"> New password</label>
 								  <div class="col-sm-10">
 								  <input type="password" class="form-control" name="newpass" id="newpass" placeholder="New password">
 								</div>
 							  </div>
 							  <div class="form-group">
-								<label for="confirmpass" class="col-sm-2 control-label" style="text-align:left">Confirm Password</label>
+								<label for="confirmpass" class="col-sm-2 control-label">Confirm Password</label>
 								<div class="col-sm-10">
 								  <input type="password" class="form-control" name="confirmpass" id="confirmpass" placeholder="Re-enter password">
 								</div>

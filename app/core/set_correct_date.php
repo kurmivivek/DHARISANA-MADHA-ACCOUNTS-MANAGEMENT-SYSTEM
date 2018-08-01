@@ -18,7 +18,7 @@ ob_start();
 </head>
 <body>
 <div class="container">
-	<div class="col-sm-9 col-md-9 ">
+	<div class="col-sm-12 col-md-12">
 				<div class="panel panel-danger top-padding" style="margin-top:30px">
 					<div class="panel-heading">
 						<h2>Error!</h2>

@@ -7,7 +7,6 @@
 	date_default_timezone_set("Asia/Kolkata");
 	if(isset($_POST['month']))
 	{
-		if($_POST['month']<9)
 		$_POST['month']=sprintf("%02d", $_POST['month']);
 		$noOfDays=date("t",mktime(0, 0, 0, $_POST['month'], 1,   $_POST['year']));
 		$monthName=date("F",mktime(0, 0, 0, $_POST['month'], 1,   $_POST['year']));
@@ -94,94 +93,94 @@
 						$result = $db->query("SELECT strftime('%d-%m-%Y',date) as date,category,sum(amount) as amount from record where type='income' and strftime('%Y-%m',date)='".$year."-".$month."' group by strftime('%Y-%m-%d',date),category") or die("Query failed");
 						while ($row = $result->fetchArray())
 						{
-							$row['amount']=number_format((float)$row['amount'], 2, '.', '');
+							$row['amount']=formatInIndianStyle(number_format((float)$row['amount'], 2, '.', ''));
 							if($row['category']=='church')
-								echo "<tr class='info'><td>{$row['date']}</td><td>{$row['category']}</td><td>{$row['amount']}</td></tr>";
+								echo "<tr class='info'><td>{$row['date']}</td><td>{$row['category']}</td><td class='amount'>{$row['amount']}</td></tr>";
 							else	
-								echo "<tr class='warning'><td>{$row['date']}</td><td>{$row['category']}</td><td>{$row['amount']}</td></tr>";
+								echo "<tr class='warning'><td>{$row['date']}</td><td>{$row['category']}</td><td class='amount'>{$row['amount']}</td></tr>";
 						}
 						?>
 						<tr>
 							<td colspan="2" style="text-align:right"><strong>Total Income ₹</strong></td>
-							<td data-toggle="tooltip" data-original-title="Total Income of Church and School Combined for the current month"><?php 
+							<td class='amount' data-toggle="tooltip" data-original-title="Total Income of Church and School Combined for the current month"><?php 
 								$income = $db->querySingle("SELECT SUM(amount) FROM record WHERE type='income' and strftime('%Y-%m',date)='".$year."-".$month."'") or ($income=0);
-            					echo number_format((float)$income, 2, '.', '');
+            					echo formatInIndianStyle(number_format((float)$income, 2, '.', ''));
 							?></td>
 						</tr>
 						<tr>
 							<td colspan="2" style="text-align:right"><strong>Total Expenditure ₹</strong></td>
-							<td data-toggle="tooltip" data-original-title="Total Expenditure of Church and School Combined for the current month"><?php 
+							<td class='amount' data-toggle="tooltip" data-original-title="Total Expenditure of Church and School Combined for the current month"><?php 
 								$expenditure = $db->querySingle("SELECT SUM(amount) FROM record WHERE type='expenditure' and strftime('%Y-%m',date)='".$year."-".$month."'") or ($expenditure=0);
-            					echo number_format((float)$expenditure, 2, '.', '');
+            					echo formatInIndianStyle(number_format((float)$expenditure, 2, '.', ''));
 							?></td>
 						</tr>
 						<tr>
 							<td colspan="2" style="text-align:right"><strong><?php echo $monthName;?>'s Total Bank balance ₹</strong></td>
-							<td data-toggle="tooltip" data-original-title="Total Expenditure subtracted from the Income of Church and School Combined for the current month"><?php 
+							<td class='amount' data-toggle="tooltip" data-original-title="Total Expenditure subtracted from the Income of Church and School Combined for the current month"><?php 
 								$balance=$income-$expenditure;
-            					echo number_format((float)$balance, 2, '.', '');
+            					echo formatInIndianStyle(number_format((float)$balance, 2, '.', ''));
 							?></td>
 						</tr>
 						<tr><td></td><td></td><td></td></tr>
 						<tr class="info">
 							<td colspan="2" style="text-align:right"><strong><?php echo $monthName;?>'s Church Income ₹</strong></td>
-							<td><?php 
+							<td class='amount'><?php 
 								$income = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='income' and strftime('%Y-%m',date)='".$year."-".$month."'") or ($income=0);
-            					echo number_format((float)$income, 2, '.', '');
+            					echo formatInIndianStyle(number_format((float)$income, 2, '.', ''));
 							?></td>
 						</tr>
 						<tr class="info">
 							<td colspan="2" style="text-align:right"><strong><?php echo $monthName;?>'s Church Expenditure ₹</strong></td>
-							<td><?php 
+							<td class='amount'><?php 
 								$expenditure = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='expenditure' and strftime('%Y-%m',date)='".$year."-".$month."'") or ($expenditure=0);
-            					echo number_format((float)$expenditure, 2, '.', '');
+            					echo formatInIndianStyle(number_format((float)$expenditure, 2, '.', ''));
 							?></td>
 						</tr>
 						<tr class="success">
 							<td colspan="2" style="text-align:right"><strong><?php echo $monthName;?>'s Church Bank balance ₹</strong></td>
-							<td><?php 
+							<td class='amount'><?php 
 								$balance=$income-$expenditure;
-            					echo number_format((float)$balance, 2, '.', '');
+            					echo formatInIndianStyle(number_format((float)$balance, 2, '.', ''));
 							?></td>
 						</tr>
 						<tr>		
  							<td colspan="2" style="text-align:right"><strong>Church Cumulative bank balance ₹</strong></td>		
- 							<td data-toggle="tooltip" data-original-title="Bank balance of all months combined"><?php 		
+ 							<td class='amount' data-toggle="tooltip" data-original-title="Bank balance of all months combined"><?php 		
  								$income = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='income' and date < date('".$year."-".$month."-01','start of month','+1 month')") or ($income=0);		
  								$expenditure = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='expenditure' and date < date('".$year."-".$month."-01','start of month','+1 month')") or ($expenditure=0);		
  								$balance=$income-$expenditure;		
- 								echo number_format((float)$balance, 2, '.', '');		
+ 								echo formatInIndianStyle(number_format((float)$balance, 2, '.', ''));		
  							?></td>		
  						</tr>
  						<tr><td></td><td></td><td></td></tr>
 						<tr class="warning">
 							<td colspan="2" style="text-align:right"><strong><?php echo $monthName;?>'s School Income ₹</strong></td>
-							<td><?php 
+							<td class='amount'><?php 
 								$income = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='school' and type='income' and strftime('%Y-%m',date)='".$year."-".$month."'") or ($income=0);
-            					echo number_format((float)$income, 2, '.', '');
+            					echo formatInIndianStyle(number_format((float)$income, 2, '.', ''));
 							?></td>
 						</tr>
 						<tr class="warning">
 							<td colspan="2" style="text-align:right"><strong><?php echo $monthName;?>'s School Expenditure ₹</strong></td>
-							<td><?php 
+							<td class='amount'><?php 
 								$expenditure = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='school' and type='expenditure' and strftime('%Y-%m',date)='".$year."-".$month."'") or ($expenditure=0);
-            					echo number_format((float)$expenditure, 2, '.', '');
+            					echo formatInIndianStyle(number_format((float)$expenditure, 2, '.', ''));
 							?></td>
 						</tr>
 						<tr class="success">
 							<td colspan="2" style="text-align:right"><strong><?php echo $monthName;?>'s School Bank balance ₹</strong></td>
-							<td><?php 
+							<td class='amount'><?php 
 								$balance=$income-$expenditure;
-            					echo number_format((float)$balance, 2, '.', '');
+            					echo formatInIndianStyle(number_format((float)$balance, 2, '.', ''));
 							?></td>
 						</tr>
 						<tr>		
  							<td colspan="2" style="text-align:right"><strong>School Cumulative bank balance ₹</strong></td>		
- 							<td data-toggle="tooltip" data-original-title="Bank balance of all months combined"><?php 		
+ 							<td class='amount' data-toggle="tooltip" data-original-title="Bank balance of all months combined"><?php 		
  								$income = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='school' and type='income' and date < date('".$year."-".$month."-01','start of month','+1 month')") or ($income=0);		
  								$expenditure = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='school' and type='expenditure' and date < date('".$year."-".$month."-01','start of month','+1 month')") or ($expenditure=0);		
  								$balance=$income-$expenditure;		
- 								echo number_format((float)$balance, 2, '.', '');		
+ 								echo formatInIndianStyle(number_format((float)$balance, 2, '.', ''));		
  							?></td>		
  						</tr>
 						</tbody>
@@ -218,7 +217,6 @@ var myChart = new Chart(ctx, {
             hoverBackgroundColor: "rgba(196, 227, 243,0.95)",
             hoverBorderColor: "rgba(196, 227, 243,1)",
             data: [<?php for ($i=1;$i<=$noOfDays;$i++){
-            			if($i<9)
 						$i=sprintf("%02d", $i);
             			$income = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='income' and strftime('%Y-%m-%d',date)='".$year."-".$month."-".$i."'") or ($income=0);
             			echo $income.',';
@@ -233,7 +231,6 @@ var myChart = new Chart(ctx, {
             hoverBackgroundColor: "rgba(245, 230, 155,0.95)",
             hoverBorderColor: "rgba(245, 230, 155,1)",
             data: [<?php for ($i=1;$i<=$noOfDays;$i++){
-            			if($i<9)
 						$i=sprintf("%02d", $i);
             			$income = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='school' and type='income' and strftime('%Y-%m-%d',date)='".$year."-".$month."-".$i."'") or ($income=0);
             			echo $income.',';
@@ -253,4 +250,5 @@ var myChart = new Chart(ctx, {
     }
 });
 </script>
+<?php $db->close(); ?>
 <?php include ("footer.php");?>

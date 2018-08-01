@@ -1,4 +1,4 @@
-This is a project to create a account's managment sytem for a bangalore based welfare association.
+This is a project to create a account's management sytem for a bangalore based welfare association.
 
 The project is built using following technologies:
 Bootstrap 3

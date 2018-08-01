@@ -49,3 +49,6 @@ margin-tOp:30%;
  .Surety_panel .panel-body{
  	padding:15px !important;
  }
+ td.amount{
+ 	text-align: right;
+ }

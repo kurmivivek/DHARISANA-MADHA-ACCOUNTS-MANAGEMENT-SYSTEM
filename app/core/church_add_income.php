@@ -84,7 +84,7 @@
 						$result = $db->query("SELECT *,strftime('%d-%m-%Y',date) as date,strftime('%d-%m-%Y %H:%M',timestamp) as entry_date FROM (SELECT * FROM record WHERE category='church' and type='income' ORDER BY id DESC LIMIT 5) ORDER BY id ASC") or die("Query failed");
 						while ($row = $result->fetchArray())
 						{
-						echo "<tr><td>{$row['date']}</td><td>{$row['name']}</td><td>{$row['receipt_no']}</td><td>{$row['amount']}</td><td>{$row['ledger_page_no']}</td><td>{$row['operator_name']}</td><td>{$row['entry_date']}</td><td><a href='edit_record.php?id={$row['id']}' class='btn btn-info' role='button'>Edit</a></td></tr>";
+						echo "<tr><td>{$row['date']}</td><td>{$row['name']}</td><td>{$row['receipt_no']}</td><td class='amount'>".formatInIndianStyle(number_format((float)$row['amount'], 2, '.', ''))."</td><td>{$row['ledger_page_no']}</td><td>{$row['operator_name']}</td><td>{$row['entry_date']}</td><td><a href='edit_record.php?id={$row['id']}' class='btn btn-info' role='button'>Edit</a></td></tr>";
 						}
 						?>
 						</tbody>
@@ -95,31 +95,31 @@
 							<h3 style="text-align:center"><strong><?php echo date('F',mktime(0, 0, 0, date("m")-1, date("d"),   date("Y")));?>'s Accounts Record</strong></h3>
 							<?php 
 							$income = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='income' and strftime('%Y-%m',date)=strftime('%Y-%m','now','-1 month','localtime')") or ($income=0);
-							$expenditure = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='expenditure' and strftime('%Y-%m',date)=strftime('%Y-%m','now','-1 month','localtime')") or ($Expenditure=0);
+							$expenditure = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='expenditure' and strftime('%Y-%m',date)=strftime('%Y-%m','now','-1 month','localtime')") or ($expenditure=0);
 							$balance=$income-$expenditure
 							?>
-							<span class="col-md-7" style="text-align:right"><strong>Total Income: ₹</strong></span><span><?php echo number_format((float)$income, 2, '.', '');?></span><br/>
-							<span class="col-md-7" style="text-align:right"><strong>Total Expenditure: ₹</strong></span><span><?php echo number_format((float)$expenditure, 2, '.', '');?></span><br/>
-							<span class="col-md-7" style="text-align:right"><strong>Balance: ₹</strong></span><span><?php echo number_format((float)$balance, 2, '.', '');?></span>
+							<span class="col-md-7" style="text-align:right"><strong>Total Income: ₹</strong></span><span><?php echo formatInIndianStyle(number_format((float)$income, 2, '.', ''));?></span><br/>
+							<span class="col-md-7" style="text-align:right"><strong>Total Expenditure: ₹</strong></span><span><?php echo formatInIndianStyle(number_format((float)$expenditure, 2, '.', ''));?></span><br/>
+							<span class="col-md-7" style="text-align:right"><strong>Balance: ₹</strong></span><span><?php echo formatInIndianStyle(number_format((float)$balance, 2, '.', ''));?></span>
 						</div>
 						<div class="col-md-6">
 							<h3 style="text-align:center"><strong><?php echo date('F');?>'s Accounts Record</strong></h3>
 							<?php 
 							$income = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='income' and strftime('%Y-%m',date)=strftime('%Y-%m','now','localtime')") or ($income=0);
-							$expenditure = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='expenditure' and strftime('%Y-%m',date)=strftime('%Y-%m','now','localtime')") or ($Expenditure=0);
+							$expenditure = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='expenditure' and strftime('%Y-%m',date)=strftime('%Y-%m','now','localtime')") or ($expenditure=0);
 							$balance=$income-$expenditure
 							?>
-							<span class="col-md-7" style="text-align:right"><strong>Total Income: ₹</strong></span><span id="income"><?php echo number_format((float)$income, 2, '.', '');?></span><br/>
-							<span class="col-md-7" style="text-align:right"><strong>Total Expenditure: ₹</strong></span><span id="expenditure"><?php echo number_format((float)$expenditure, 2, '.', '')?></span><br/>
-							<span class="col-md-7" style="text-align:right"><strong>Balance: ₹</strong></span><span id="balance"><?php echo number_format((float)$balance, 2, '.', '');?></span>
+							<span class="col-md-7" style="text-align:right"><strong>Total Income: ₹</strong></span><span id="income"><?php echo formatInIndianStyle(number_format((float)$income, 2, '.', ''));?></span><br/>
+							<span class="col-md-7" style="text-align:right"><strong>Total Expenditure: ₹</strong></span><span id="expenditure"><?php echo formatInIndianStyle(number_format((float)$expenditure, 2, '.', ''))?></span><br/>
+							<span class="col-md-7" style="text-align:right"><strong>Balance: ₹</strong></span><span id="balance"><?php echo formatInIndianStyle(number_format((float)$balance, 2, '.', ''));?></span>
 						</div>
 						<div class="col-md-12">		
  							<?php 		
  							$income = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='income'") or ($income=0);		
- 							$expenditure = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='expenditure'") or ($Expenditure=0);		
+ 							$expenditure = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='expenditure'") or ($expenditure=0);		
  							$balance=$income-$expenditure;		
  							?>		
- 							<span class="col-md-12" style="text-align:center"><strong>Church Cumulative Bank Balance: ₹ </strong><span id="total_balance"><?php echo number_format((float)$balance, 2, '.', '');?></span></span>		
+ 							<span class="col-md-12" style="text-align:center"><strong>Church Cumulative Bank Balance: ₹ </strong><span id="total_balance"><?php echo formatInIndianStyle(number_format((float)$balance, 2, '.', ''));?></span></span>		
  						</div>
 					</div>
 				</div>
@@ -227,17 +227,17 @@ $(document).ready(function()	{
                 // ... Process the result ...
                 if(result['success']){
                 	var d = new Date();
-                	$('#recordTable tbody').append("<tr class='success'><td>"+result['date']+"</td><td>"+result['name']+"</td><td>"+result['receipt_no']+"</td><td>"+result['amount']+"</td><td>"+result['ledger_page_no']+"</td><td><?php echo $_COOKIE['admin_name']?></td><td>"+pad(d.getDate())+"-"+pad(d.getMonth()+1)+"-"+d.getFullYear()+" "+pad(d.getHours())+":"+pad(d.getMinutes())+"</td><td><a href='edit_record.php?id="+result['id']+"' class='btn btn-info' role='button'>Edit</a></td></tr>");
-                	var total_balance=$("#total_balance").text();
-                	var balance=$("#balance").text();
-                	var income=$("#income").text();
-                	var amount=result['amount'];
+                	$('#recordTable tbody').append("<tr class='success'><td>"+result['date']+"</td><td>"+result['name']+"</td><td>"+result['receipt_no']+"</td><td class='amount'>"+result['amount']+"</td><td>"+result['ledger_page_no']+"</td><td><?php echo $_COOKIE['admin_name']?></td><td>"+pad(d.getDate())+"-"+pad(d.getMonth()+1)+"-"+d.getFullYear()+" "+pad(d.getHours())+":"+pad(d.getMinutes())+"</td><td><a href='edit_record.php?id="+result['id']+"' class='btn btn-info' role='button'>Edit</a></td></tr>");
+                	var total_balance=$("#total_balance").text().replace(/\,/g,'');
+                	var balance=$("#balance").text().replace(/\,/g,'');
+                	var income=$("#income").text().replace(/\,/g,'');
+                	var amount=result['amount'].replace(/\,/g,'');
                 	total_balance=parseFloat(total_balance)+parseFloat(amount);
                 	balance=parseFloat(balance)+parseFloat(amount);
                 	income=parseFloat(income)+parseFloat(amount);
-                	$("#total_balance").text(total_balance.toFixed(2));
-                	$("#balance").text(balance.toFixed(2));
-                	$("#income").text(income.toFixed(2));
+                	$("#total_balance").text(total_balance.toLocaleString('en-IN', {minimumFractionDigits:2 ,maximumFractionDigits: 2}));
+                	$("#balance").text(balance.toLocaleString('en-IN', {minimumFractionDigits:2 ,maximumFractionDigits: 2}));
+                	$("#income").text(income.toLocaleString('en-IN', {minimumFractionDigits:2 ,maximumFractionDigits: 2}));
                 	swal({  title: "Success!",   
                 			text: "The record has been sucessfully added",
                 			type: "success",   
@@ -279,5 +279,5 @@ $(document).ready(function()	{
 	    }
 	});
 </script>
-
+<?php $db->close(); ?>
 <?php include ("footer.php");?>

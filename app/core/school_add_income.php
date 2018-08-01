@@ -193,6 +193,29 @@ $(document).ready(function()	{
         .on('success.form.fv', function(e) {
             // Prevent form submission
             e.preventDefault();
+
+            //check if entry for the receipt_no already exists
+            var validRN=true;
+            var checkRN=$.ajax({
+				type: "GET",
+				url: "ajax/check_record.php",
+				data: {category: "school",type: "income",receipt: $("#receipt").val()}, 
+				cache: false,
+				async: false,
+				success: function(result){
+					if(result['valid']!=true){
+	                	validRN=false;
+	             		var r = confirm("An record with the same Receipt No. already exists for the given month! Are you sure you want to add this record?");
+             		    if (r == true) {
+             		        validRN=true;
+	             		}
+	             		else{
+	             			$("#schoolIncomeForm button[type=submit]").removeAttr('disabled');
+	             		}   	
+	                }
+				}
+				});
+            if(validRN){
             // Get the form instance
             var $form = $(e.target);
 
@@ -239,6 +262,7 @@ $(document).ready(function()	{
                 			allowOutsideClick: true
                 			 });
 		  	});
+        	}
         });
 	});
 	//to populate the date input to the current date

@@ -92,10 +92,10 @@
 					</div>
 					<div class="col-md-offset-2 col-md-8">
 						<div class="col-md-6">
-							<h3 style="text-align:center"><strong><?php echo date('F',mktime(0, 0, 0, date("m")-1, date("d"),   date("Y")));?>'s Accounts Record</strong></h3>
+							<h3 style="text-align:center"><strong><?php echo date('F',mktime(0, 0, 0, date("m")-1, 1,   date("Y")));?>'s Accounts Record</strong></h3>
 							<?php 
-							$income = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='income' and strftime('%Y-%m',date)=strftime('%Y-%m','now','-1 month','localtime')") or ($income=0);
-							$expenditure = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='expenditure' and strftime('%Y-%m',date)=strftime('%Y-%m','now','-1 month','localtime')") or ($expenditure=0);
+							$income = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='income' and strftime('%Y-%m',date)=strftime('%Y-%m','now','start of month','-1 month','localtime')") or ($income=0);
+							$expenditure = $db->querySingle("SELECT SUM(amount) FROM record WHERE category='church' and type='expenditure' and strftime('%Y-%m',date)=strftime('%Y-%m','now','start of month','-1 month','localtime')") or ($expenditure=0);
 							$balance=$income-$expenditure
 							?>
 							<span class="col-md-7" style="text-align:right"><strong>Total Income: ₹</strong></span><span><?php echo formatInIndianStyle(number_format((float)$income, 2, '.', ''));?></span><br/>
